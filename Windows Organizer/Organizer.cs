@@ -7,6 +7,7 @@ namespace Windows_Organizer
 {
     class Organizer
     {
+        
         public IEnumerable<string> temporaryFileList { get; private set; }
         public IEnumerable<string> temporaryDirectoryList { get; private set; }
 
