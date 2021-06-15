@@ -104,19 +104,19 @@ namespace Windows_Organizer
             this.deleteRuleToolStripMenuItem,
             this.duplicateRuleToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(151, 48);
             // 
             // deleteRuleToolStripMenuItem
             // 
             this.deleteRuleToolStripMenuItem.Name = "deleteRuleToolStripMenuItem";
-            this.deleteRuleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteRuleToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.deleteRuleToolStripMenuItem.Text = "Delete Rule";
             this.deleteRuleToolStripMenuItem.Click += new System.EventHandler(this.deleteRuleToolStripMenuItem_Click);
             // 
             // duplicateRuleToolStripMenuItem
             // 
             this.duplicateRuleToolStripMenuItem.Name = "duplicateRuleToolStripMenuItem";
-            this.duplicateRuleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.duplicateRuleToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.duplicateRuleToolStripMenuItem.Text = "Duplicate Rule";
             this.duplicateRuleToolStripMenuItem.Click += new System.EventHandler(this.duplicateRuleToolStripMenuItem_Click);
             // 
@@ -233,8 +233,8 @@ namespace Windows_Organizer
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);

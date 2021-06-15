@@ -194,11 +194,8 @@ namespace Windows_Organizer
             throw new NotImplementedException();
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Created by: miltinhoc", "Windows Organizer", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => MessageBox.Show("Created by: miltinhoc", "Windows Organizer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        
         private void duplicateRuleToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
