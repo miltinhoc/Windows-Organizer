@@ -69,7 +69,6 @@ namespace Windows_Organizer
             // 
             // TxtSearchDirectory
             // 
-            this.TxtSearchDirectory.Enabled = false;
             this.TxtSearchDirectory.Location = new System.Drawing.Point(107, 24);
             this.TxtSearchDirectory.Name = "TxtSearchDirectory";
             this.TxtSearchDirectory.Size = new System.Drawing.Size(429, 20);
@@ -133,7 +132,6 @@ namespace Windows_Organizer
             // 
             // TxtOutputDirectory
             // 
-            this.TxtOutputDirectory.Enabled = false;
             this.TxtOutputDirectory.Location = new System.Drawing.Point(107, 93);
             this.TxtOutputDirectory.Name = "TxtOutputDirectory";
             this.TxtOutputDirectory.Size = new System.Drawing.Size(429, 20);

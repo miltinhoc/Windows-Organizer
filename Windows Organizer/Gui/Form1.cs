@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -8,6 +9,7 @@ namespace Windows_Organizer
     {
         private RuleManager ruleManager;
         private Organizer organizer;
+        private Scheduler scheduler;
 
         private const string status_done = "Ready";
         private const string status_working = "Organizing...";
@@ -64,7 +66,6 @@ namespace Windows_Organizer
         /// <param name="e"></param>
         private void BwOrganize_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //MessageBox.Show("Done!");
             ChangeStatus(status_done);
         }
 
@@ -77,6 +78,7 @@ namespace Windows_Organizer
         {
             ruleManager = new RuleManager();
             organizer = new Organizer();
+            scheduler = new Scheduler();
 
             FillTable();
             ResizeTable();
@@ -84,30 +86,16 @@ namespace Windows_Organizer
             AddEventHandlers();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void FillTable()
         {
-            //RulesTable.DataSource = RuleManager.GetRules();
-
             foreach(Rule rule in RuleManager.GetRules())
             {
                 AddRuleToDatagrid(rule);
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="rule"></param>
         private void AddRuleToDatagrid(Rule rule) => RulesTable.Rows.Add(rule.SearchDirectory, rule.TargetDirectory, rule.SearchTopOnly, rule.Extension);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void CreateRule_OnNewRule(object sender, ProgressEventArgs e)
         {
             bool added = ruleManager.AddRule(e.Rule);
@@ -122,9 +110,6 @@ namespace Windows_Organizer
             MessageBox.Show("Error adding the rule!", "Windows Organizer", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void AddEventHandlers()
         {
             RulesTable.UserDeletingRow += RulesTable_UserDeletingRow;
@@ -157,14 +142,9 @@ namespace Windows_Organizer
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void deleteRuleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Int32 selectedRowCount = RulesTable.Rows.GetRowCount(DataGridViewElementStates.Selected);
+            int selectedRowCount = RulesTable.Rows.GetRowCount(DataGridViewElementStates.Selected);
 
             if (selectedRowCount > 0)
             {
@@ -191,12 +171,39 @@ namespace Windows_Organizer
 
         private void ToolTipBtnSmartOrganize_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            ChangeStatus(status_working);
+            BwSmart.RunWorkerAsync();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => MessageBox.Show("Created by: miltinhoc", "Windows Organizer", MessageBoxButtons.OK, MessageBoxIcon.Information);
         
         private void duplicateRuleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void automaticOrganizerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Gui.SchedulerGui schedulerGui = new Gui.SchedulerGui();
+            schedulerGui.ShowDialog();
+        }
+
+        private void OrganizeTimer_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BwSmart_DoWork(object sender, DoWorkEventArgs e)
+        {
+            //
+
+            SmartOrganizer smartOrganizer = new SmartOrganizer();
+            smartOrganizer.RunSmartOrganizer();
+        }
+
+        private void BwSmart_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) => ChangeStatus(status_done);
+
+        private void exclusionListToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

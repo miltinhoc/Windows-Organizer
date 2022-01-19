@@ -8,20 +8,20 @@ namespace Windows_Organizer
     class Organizer
     {
         
-        public IEnumerable<string> temporaryFileList { get; private set; }
-        public IEnumerable<string> temporaryDirectoryList { get; private set; }
+        public IEnumerable<string> TemporaryFileList { get; private set; }
+        public IEnumerable<string> TemporaryDirectoryList { get; private set; }
 
         public Organizer()
         {
-            temporaryFileList = new List<string>();
-            temporaryDirectoryList = new List<string>();
+            TemporaryFileList = new List<string>();
+            TemporaryDirectoryList = new List<string>();
         }
 
         public void EnumerateFiles(string rootPath, string extension)
         {
             try
             {
-                ((List<string>)temporaryFileList).AddRange(Directory.EnumerateFiles(rootPath, $"*.{extension}"));
+                ((List<string>)TemporaryFileList).AddRange(Directory.EnumerateFiles(rootPath, $"*.{extension}"));
             }
             catch (Exception) { }
         }
@@ -31,35 +31,43 @@ namespace Windows_Organizer
             try
             {
                 IEnumerable<string> subDirs = Directory.EnumerateDirectories(rootPath, "*", SearchOption.AllDirectories);
-                ((List<string>)temporaryDirectoryList).AddRange(subDirs);
+                ((List<string>)TemporaryDirectoryList).AddRange(subDirs);
             }
             catch (Exception) { }
         }
 
         public void Organize(Rule rule)
         {
-            ClearTempList();
-            CheckDestinyDirectory(rule.TargetDirectory);
-
-            if (rule.SearchTopOnly)
+            try
             {
-                EnumerateFiles(rule.SearchDirectory, rule.Extension);
-            }
-            else
-            {
-                // add root path to list
-                ((List<string>)temporaryDirectoryList).Add(rule.SearchDirectory);
+                ClearTempList();
+                CheckDestinyDirectory(rule.TargetDirectory);
 
-                EnumerateDirectories(rule.SearchDirectory);
-                AddFilesToQueue(rule.Extension);
+                if (rule.SearchTopOnly)
+                {
+                    EnumerateFiles(rule.SearchDirectory, rule.Extension);
+                }
+                else
+                {
+                    // add root path to list
+                    ((List<string>)TemporaryDirectoryList).Add(rule.SearchDirectory);
+
+                    EnumerateDirectories(rule.SearchDirectory);
+                    AddFilesToQueue(rule.Extension);
+                }
+
+                MoveFiles(rule.TargetDirectory);
+
+            }catch(Exception)
+            {
+                
             }
             
-            MoveFiles(rule.TargetDirectory);
         }
 
         private void MoveFiles(string destPath)
         {
-            foreach(string file in temporaryFileList)
+            foreach(string file in TemporaryFileList)
             {
                 string fileName = file.Split(Path.DirectorySeparatorChar).Last();
 
@@ -71,13 +79,13 @@ namespace Windows_Organizer
                 {
                     
                 }
-                
+
             }
         }
 
         private void AddFilesToQueue(string extension)
         {
-            foreach(string path in temporaryDirectoryList)
+            foreach(string path in TemporaryDirectoryList)
             {
                 EnumerateFiles(path, extension);
             }
@@ -93,8 +101,8 @@ namespace Windows_Organizer
 
         private void ClearTempList()
         {
-            ((List<string>)temporaryDirectoryList).Clear();
-            ((List<string>)temporaryFileList).Clear();
+            ((List<string>)TemporaryDirectoryList).Clear();
+            ((List<string>)TemporaryFileList).Clear();
         }
     }
 }

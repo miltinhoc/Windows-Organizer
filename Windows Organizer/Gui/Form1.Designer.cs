@@ -47,9 +47,14 @@ namespace Windows_Organizer
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolTipBtnSmartOrganize = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.automaticOrganizerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exclusionListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ToolTipStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.OrganizeTimer = new System.Windows.Forms.Timer(this.components);
+            this.BwSmart = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.RulesTable)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -175,7 +180,6 @@ namespace Windows_Organizer
             // 
             // ToolTipBtnSmartOrganize
             // 
-            this.ToolTipBtnSmartOrganize.Enabled = false;
             this.ToolTipBtnSmartOrganize.ForeColor = System.Drawing.Color.White;
             this.ToolTipBtnSmartOrganize.Image = global::Windows_Organizer.Properties.Resources.smart;
             this.ToolTipBtnSmartOrganize.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -188,6 +192,7 @@ namespace Windows_Organizer
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionsToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -195,6 +200,30 @@ namespace Windows_Organizer
             this.menuStrip1.Size = new System.Drawing.Size(1073, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.automaticOrganizerToolStripMenuItem,
+            this.exclusionListToolStripMenuItem});
+            this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // automaticOrganizerToolStripMenuItem
+            // 
+            this.automaticOrganizerToolStripMenuItem.Name = "automaticOrganizerToolStripMenuItem";
+            this.automaticOrganizerToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.automaticOrganizerToolStripMenuItem.Text = "Schedule Organizer";
+            this.automaticOrganizerToolStripMenuItem.Click += new System.EventHandler(this.automaticOrganizerToolStripMenuItem_Click);
+            // 
+            // exclusionListToolStripMenuItem
+            // 
+            this.exclusionListToolStripMenuItem.Name = "exclusionListToolStripMenuItem";
+            this.exclusionListToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.exclusionListToolStripMenuItem.Text = "Exclusion List";
+            this.exclusionListToolStripMenuItem.Click += new System.EventHandler(this.exclusionListToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -223,6 +252,18 @@ namespace Windows_Organizer
             this.ToolTipStatus.Name = "ToolTipStatus";
             this.ToolTipStatus.Size = new System.Drawing.Size(56, 21);
             this.ToolTipStatus.Text = "Done";
+            // 
+            // OrganizeTimer
+            // 
+            this.OrganizeTimer.Interval = 1000;
+            this.OrganizeTimer.Tick += new System.EventHandler(this.OrganizeTimer_Tick);
+            // 
+            // BwSmart
+            // 
+            this.BwSmart.WorkerReportsProgress = true;
+            this.BwSmart.WorkerSupportsCancellation = true;
+            this.BwSmart.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BwSmart_DoWork);
+            this.BwSmart.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BwSmart_RunWorkerCompleted);
             // 
             // Form1
             // 
@@ -276,6 +317,11 @@ namespace Windows_Organizer
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.Timer OrganizeTimer;
+        private System.Windows.Forms.ToolStripMenuItem automaticOrganizerToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker BwSmart;
+        private System.Windows.Forms.ToolStripMenuItem exclusionListToolStripMenuItem;
     }
 }
 
